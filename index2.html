@@ -101,7 +101,7 @@
   .machine.inview .bigdec{opacity:.03}
   @media (min-width:900px){ .machine.inview .bigdec{opacity:.045} }
   .steps{position:relative;z-index:1;padding:0 22px}
-  .step{min-height:calc(52svh - 24px);display:flex;flex-direction:column;justify-content:center;opacity:.22;
+  .step{min-height:calc(52svh - 24px);padding:16px 0;display:flex;flex-direction:column;justify-content:center;opacity:.22;
     transform:translateY(12px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
   .step.on{opacity:1;transform:none}
   .step .when{font-size:.95rem;font-weight:600;color:var(--c,#a1a1a6)}
@@ -122,6 +122,21 @@
     .step:first-child{margin-top:20svh}
     .step:last-child{margin-bottom:30svh}
   }
+
+
+  /* Bilder zu den Stationen */
+  .media{position:relative;margin:0 0 18px;width:100%;max-width:440px;aspect-ratio:2/1;border-radius:20px;overflow:hidden;
+    background:radial-gradient(90% 120% at 20% 0%,color-mix(in srgb,var(--c,#888) 30%,transparent),transparent 65%),#161617;
+    display:grid;place-items:center;color:var(--c,#a1a1a6)}
+  .media.art svg{width:58%;height:auto;max-height:80%}
+  .media.photo{cursor:zoom-in;background:#1c1c1e}
+  .media.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .media .ph{display:flex;flex-direction:column;align-items:center;gap:6px;color:#8e8e93;font-size:.9rem}
+  .media .ph svg{width:30px;height:30px}
+  @media (min-width:900px){ .media{aspect-ratio:16/10} }
+  .lightbox{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:100%;max-height:86svh;border-radius:18px}
 
   /* ---------- 4 · Ankunft: Bild wächst auf Vollbild ---------- */
   .reveal{height:260vh;background:#fff;position:relative}
@@ -166,6 +181,8 @@
 </style>
 </head>
 <body>
+
+<div class="lightbox" id="lightbox" aria-hidden="true"><img alt=""></div>
 
 <header class="nav">
   <div class="wrap">
@@ -230,53 +247,53 @@
     </div>
 
     <div class="steps">
-      <article class="step me" data-y="1976.95"><span class="when">12. Dezember 1976</span>
+      <article class="step me" data-y="1976.95"><figure class="media photo" tabindex="0" role="button" aria-label="Foto vergrößern: Andy als Baby"><span class="ph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto folgt</span><img src="img/1976-geburt.jpg" alt="Andy als Baby" loading="lazy" onerror="this.remove()"></figure><span class="when">12. Dezember 1976</span>
         <h3>Abfahrt: Andy kommt zur Welt.</h3><p>Ohne Soundcheck, aber direkt mit voller Lautstärke.</p></article>
-      <article class="step" data-y="1977.7"><span class="when">1977</span>
+      <article class="step" data-y="1977.7"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Raumsonde im All" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="70" cy="46" r="20"/><path d="M58 46h24M70 34v24"/><path d="M90 46h30M120 40v12M50 56l-22 18M28 74l-6-4"/><circle cx="70" cy="46" r="4"/><path d="M18 18h.01M140 22h.01M128 82h.01M30 88h.01M146 64h.01"/></svg></figure><span class="when">1977</span>
         <h3>Voyager 1 startet ins All.</h3><p>Die Sonde fliegt bis heute – kaum jünger als Andy.</p></article>
-      <article class="step" data-y="1979.5"><span class="when">1979</span>
+      <article class="step" data-y="1979.5"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Kassettenspieler mit Kopfhörer" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="44" y="36" width="72" height="50" rx="6"/><rect x="54" y="46" width="52" height="22" rx="3"/><circle cx="67" cy="57" r="5"/><circle cx="93" cy="57" r="5"/><path d="M50 36c0-26 60-26 60 0"/><rect x="44" y="28" width="10" height="14" rx="3"/><rect x="106" y="28" width="10" height="14" rx="3"/></svg></figure><span class="when">1979</span>
         <h3>Der Walkman kommt.</h3><p>Musik passt plötzlich in die Hosentasche.</p></article>
-      <article class="step" data-y="1980.3"><span class="when">1980</span>
+      <article class="step" data-y="1980.3"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Spielautomaten-Joystick" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M40 84h80l-8-22H48z"/><path d="M80 62V30"/><circle cx="80" cy="24" r="9"/><circle cx="102" cy="72" r="4"/><circle cx="58" cy="72" r="4"/><path d="M22 20h4M134 20h4M22 30h4M134 30h4"/></svg></figure><span class="when">1980</span>
         <h3>Pac-Man erobert die Spielhallen.</h3><p>Waka-waka-waka – und das Taschengeld ist weg.</p></article>
-      <article class="step me" data-y="1980.35"><span class="when">5. Mai 1980</span>
+      <article class="step me" data-y="1980.35"><figure class="media photo" tabindex="0" role="button" aria-label="Foto vergrößern: Andy mit seinem kleinen Bruder"><span class="ph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto folgt</span><img src="img/1980-bruder.jpg" alt="Andy mit seinem kleinen Bruder" loading="lazy" onerror="this.remove()"></figure><span class="when">5. Mai 1980</span>
         <h3>Player 2 betritt das Spiel.</h3><p>Andys Bruder kommt zur Welt. Ab jetzt wird geteilt.</p></article>
-      <article class="step" data-y="1985.5"><span class="when">1985</span>
+      <article class="step" data-y="1985.5"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Tennisschläger und Ball" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="62" cy="40" rx="22" ry="28" transform="rotate(-30 62 40)"/><path d="M75 62l26 26"/><path d="M50 22l26 30M44 36l26 14M58 16l10 38"/><circle cx="118" cy="40" r="14"/><path d="M106 33c8 2 14 8 16 18M112 28c6 6 8 14 6 24"/></svg></figure><span class="when">1985</span>
         <h3>Boris gewinnt Wimbledon.</h3><p>Mit 17 – und ganz Deutschland hechtet mit.</p></article>
-      <article class="step" data-y="1989.85"><span class="when">1989</span>
+      <article class="step" data-y="1989.85"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Mauer mit Durchbruch" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 30h46v14H20zM20 44h30v14H20zM20 58h46v14H20zM20 72h30v14H20z"/><path d="M94 30h46v14H94zM110 44h30v14h-30zM94 58h46v14H94zM110 72h30v14h-30z"/><path d="M66 30l8 10-6 8 10 10-4 10 6 18M94 30l-6 12 8 10-8 10 6 8-4 16"/><path d="M80 14v8M70 18l4 6M90 18l-4 6"/></svg></figure><span class="when">1989</span>
         <h3>Die Mauer fällt.</h3><p>Der vielleicht schönste Abend des Jahrzehnts.</p></article>
-      <article class="step" data-y="1990.5"><span class="when">1990</span>
+      <article class="step" data-y="1990.5"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Fußball und Stern" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="66" cy="54" r="28"/><path d="M66 40l12 9-5 14H59l-5-14z"/><path d="M66 26v14M78 49l14-6M73 63l10 12M59 63l-10 12M54 49l-14-6"/><path d="M118 22l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z"/></svg></figure><span class="when">1990</span>
         <h3>Weltmeister und Einheit.</h3><p>Erst der Titel in Rom, dann die Wiedervereinigung.</p></article>
-      <article class="step" data-y="1991.6"><span class="when">1991</span>
+      <article class="step" data-y="1991.6"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Globus mit Netz" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="80" cy="50" r="34"/><ellipse cx="80" cy="50" rx="14" ry="34"/><path d="M46 50h68M52 32h56M52 68h56"/></svg></figure><span class="when">1991</span>
         <h3>Das World Wide Web geht online.</h3><p>Damals noch langsam – heute unverzichtbar.</p></article>
-      <article class="step" data-y="1992.9"><span class="when">1992</span>
+      <article class="step" data-y="1992.9"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Sprechblase mit Nachricht" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M34 22h92a8 8 0 0 1 8 8v34a8 8 0 0 1-8 8H72l-18 14v-14H34a8 8 0 0 1-8-8V30a8 8 0 0 1 8-8z"/><path d="M44 40h56M44 52h38"/><path d="M118 38l4 4 4-4M122 34v12"/></svg></figure><span class="when">1992</span>
         <h3>Die erste SMS.</h3><p>Inhalt: „Merry Christmas“. Kurz und knackig.</p></article>
-      <article class="step me" data-y="1995"><span class="when">Mit 18</span>
+      <article class="step me" data-y="1995"><figure class="media photo" tabindex="0" role="button" aria-label="Foto vergrößern: Andy mit 18 und dem ersten Auto"><span class="ph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto folgt</span><img src="img/1995-fuehrerschein.jpg" alt="Andy mit 18 und dem ersten Auto" loading="lazy" onerror="this.remove()"></figure><span class="when">Mit 18</span>
         <h3>Führerschein!</h3><p>Freiheit auf vier Rädern, Mixtape im Kassettendeck.</p></article>
-      <article class="step" data-y="1998.7"><span class="when">1998</span>
+      <article class="step" data-y="1998.7"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Lupe" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="70" cy="44" r="24"/><path d="M87 61l26 26"/><path d="M58 44h24M70 32v0"/><path d="M60 36c4-6 16-6 20 0"/></svg></figure><span class="when">1998</span>
         <h3>Google wird gegründet.</h3><p>Ab jetzt muss man nichts mehr wissen – nur noch suchen.</p></article>
-      <article class="step me" data-y="1998.8"><span class="when">1998</span>
+      <article class="step me" data-y="1998.8"><figure class="media photo" tabindex="0" role="button" aria-label="Foto vergrößern: Andy zum Studienbeginn"><span class="ph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto folgt</span><img src="img/1998-studium.jpg" alt="Andy zum Studienbeginn" loading="lazy" onerror="this.remove()"></figure><span class="when">1998</span>
         <h3>Start ins Studium.</h3><p>Hörsaal statt Klassenzimmer.</p></article>
-      <article class="step" data-y="2002"><span class="when">2002</span>
+      <article class="step" data-y="2002"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Euro-Münze" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="80" cy="50" r="34"/><circle cx="80" cy="50" r="27"/><path d="M92 36c-12-8-28 0-28 14s16 22 28 14M58 46h24M58 55h22"/></svg></figure><span class="when">2002</span>
         <h3>Der Euro ist da.</h3><p>Und alle rechnen noch jahrelang in D-Mark um.</p></article>
-      <article class="step" data-y="2006.5"><span class="when">2006</span>
+      <article class="step" data-y="2006.5"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Fahne und Fußball" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M46 88V16"/><path d="M46 18c18-8 30 8 50 0v32c-20 8-32-8-50 0"/><path d="M46 29.5c18-8 30 8 50 0M46 39c18-8 30 8 50 0"/><circle cx="116" cy="74" r="14"/><path d="M116 66l7 5-3 8h-8l-3-8z"/></svg></figure><span class="when">2006</span>
         <h3>Das Sommermärchen.</h3><p>WM im eigenen Land, Fahnen an jedem Auto.</p></article>
-      <article class="step" data-y="2007.05"><span class="when">2007</span>
+      <article class="step" data-y="2007.05"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Smartphone" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="58" y="10" width="44" height="80" rx="9"/><path d="M74 16h12"/><circle cx="80" cy="82" r="3"/><path d="M66 28h6M78 28h6M90 28h4M66 40h6M78 40h6M90 40h4M66 52h6M78 52h6"/></svg></figure><span class="when">2007</span>
         <h3>Das iPhone wird vorgestellt.</h3><p>Seitdem schaut die Welt nach unten.</p></article>
-      <article class="step me" data-y="2012.15"><span class="when">Februar 2012</span>
+      <article class="step me" data-y="2012.15"><figure class="media photo" tabindex="0" role="button" aria-label="Foto vergrößern: Sammy als Baby"><span class="ph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto folgt</span><img src="img/2012-sammy.jpg" alt="Sammy als Baby" loading="lazy" onerror="this.remove()"></figure><span class="when">Februar 2012</span>
         <h3>Sammy ist da.</h3><p>Der Sohn übernimmt sofort das Kommando.</p></article>
-      <article class="step me" data-y="2012.7"><span class="when">15. September 2012</span>
+      <article class="step me" data-y="2012.7"><figure class="media photo" tabindex="0" role="button" aria-label="Foto vergrößern: Andy und Cecilia bei der Hochzeit"><span class="ph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto folgt</span><img src="img/2012-hochzeit.jpg" alt="Andy und Cecilia bei der Hochzeit" loading="lazy" onerror="this.remove()"></figure><span class="when">15. September 2012</span>
         <h3>Hochzeit mit Cecilia.</h3><p>Das schönste Ja des Jahrzehnts.</p></article>
-      <article class="step" data-y="2014.5"><span class="when">2014</span>
+      <article class="step" data-y="2014.5"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Vier Sterne" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 40l5 10 11 1-8 8 2 11-10-6-10 6 2-11-8-8 11-1zM66 30l5 10 11 1-8 8 2 11-10-6-10 6 2-11-8-8 11-1zM102 30l5 10 11 1-8 8 2 11-10-6-10 6 2-11-8-8 11-1zM138 40l5 10 11 1-8 8 2 11-10-6-10 6 2-11-8-8 11-1z" transform="translate(-6 4)"/></svg></figure><span class="when">2014</span>
         <h3>Weltmeister in Rio.</h3><p>Der vierte Stern.</p></article>
-      <article class="step me" data-y="2015.45"><span class="when">Juni 2015</span>
+      <article class="step me" data-y="2015.45"><figure class="media photo" tabindex="0" role="button" aria-label="Foto vergrößern: Becky als Baby"><span class="ph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto folgt</span><img src="img/2015-becky.jpg" alt="Becky als Baby" loading="lazy" onerror="this.remove()"></figure><span class="when">Juni 2015</span>
         <h3>Becky ist da.</h3><p>Die Familie ist komplett.</p></article>
-      <article class="step me" data-y="2017.5"><span class="when">2017</span>
+      <article class="step me" data-y="2017.5"><figure class="media photo" tabindex="0" role="button" aria-label="Foto vergrößern: Das neue Zuhause in Germering"><span class="ph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto folgt</span><img src="img/2017-germering.jpg" alt="Das neue Zuhause in Germering" loading="lazy" onerror="this.remove()"></figure><span class="when">2017</span>
         <h3>Umzug nach Germering.</h3><p>Neues Zuhause – genau hier wird gefeiert.</p></article>
-      <article class="step" data-y="2019.3"><span class="when">2019</span>
+      <article class="step" data-y="2019.3"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Leuchtender Ring eines Schwarzen Lochs"><defs><radialGradient id="bh"><stop offset="38%" stop-color="#000"/><stop offset="52%" stop-color="currentColor"/><stop offset="62%" stop-color="currentColor" stop-opacity=".55"/><stop offset="100%" stop-color="currentColor" stop-opacity="0"/></radialGradient></defs><circle cx="80" cy="50" r="46" fill="url(#bh)"/></svg></figure><span class="when">2019</span>
         <h3>Das erste Foto eines Schwarzen Lochs.</h3><p>Ein unscharfer Ring, der Geschichte schreibt.</p></article>
-      <article class="step" data-y="2022"><span class="when">2022</span>
+      <article class="step" data-y="2022"><figure class="media art"><svg viewBox="0 0 160 100" role="img" aria-label="Chat mit KI" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 24h70a8 8 0 0 1 8 8v20a8 8 0 0 1-8 8H50l-14 10V60H24a8 8 0 0 1-8-8V32a8 8 0 0 1 8-8z"/><path d="M66 50h70a8 8 0 0 1 8 8v14a8 8 0 0 1-8 8h-10v10l-14-10H66"/><path d="M122 14l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/><path d="M30 38h50M30 46h34"/></svg></figure><span class="when">2022</span>
         <h3>KI wird alltäglich.</h3><p>Plötzlich chattet die halbe Welt mit Maschinen.</p></article>
-      <article class="step me" data-y="2026.95"><span class="when">12. Dezember 2026</span>
+      <article class="step me" data-y="2026.95"><figure class="media photo" tabindex="0" role="button" aria-label="Foto vergrößern: Andy heute"><span class="ph"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto folgt</span><img src="img/2026-andy.jpg" alt="Andy heute" loading="lazy" onerror="this.remove()"></figure><span class="when">12. Dezember 2026</span>
         <h3>Andy wird 50.</h3><p>Nächster Halt: die Party.</p></article>
     </div>
   </div>
@@ -435,6 +452,19 @@
       else heroDial.querySelector("small").textContent = "Bereit";
     })(performance.now());
   } else { heroYr.textContent = "1976"; }
+
+  // Farbe je Jahrzehnt an die Stationen geben
+  steps.forEach(s => s.style.setProperty("--c", decadeOf(Math.floor(+s.dataset.y)).a));
+
+  // Fotos per Tipp vergrößern
+  const lb = document.getElementById("lightbox"), lbImg = lb.querySelector("img");
+  document.querySelectorAll(".media.photo").forEach(f => {
+    const open = () => { const i = f.querySelector("img"); if (!i) return;
+      lbImg.src = i.src; lbImg.alt = i.alt; lb.classList.add("open"); lb.setAttribute("aria-hidden","false"); };
+    f.addEventListener("click", open);
+    f.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+  });
+  lb.addEventListener("click", () => { lb.classList.remove("open"); lb.setAttribute("aria-hidden","true"); });
 
   let ticking = false;
   const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { frame(); ticking = false; }); } };
