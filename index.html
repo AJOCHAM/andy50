@@ -59,11 +59,24 @@
   .hero .six{width:min(320px,70%);margin:18px 0 20px;height:8px}
   .when{font-size:1.15rem;line-height:1.45;max-width:30ch}
   .when strong{color:#fff}
-  .actions{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:28px}
-  .cta{display:inline-flex;align-items:center;min-height:52px;padding:0 26px;border-radius:999px;
-    background:var(--amber);color:#000;font-weight:700;font-size:1.1rem;text-decoration:none}
-  .cta:hover{background:#ffc33d}
-  .quiet{font-weight:500;color:#d8d3c7;text-underline-offset:5px;min-height:44px;display:inline-flex;align-items:center}
+  .modes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:28px}
+  .mode{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:18px;
+    min-height:176px;padding:18px 16px 16px;border-radius:20px;text-decoration:none;overflow:hidden;
+    transition:transform .15s ease}
+  .mode:hover{transform:translateY(-3px)}
+  .mode .big{font-family:"VT323",monospace;font-size:clamp(2.1rem,9vw,2.8rem);line-height:.9;font-variant-numeric:tabular-nums}
+  .mode strong{display:block;font-size:clamp(1.35rem,6vw,1.7rem);line-height:1.1;letter-spacing:-.02em}
+  .mode .s{display:block;font-size:.95rem;margin-top:4px}
+  .m-travel{background:#7c5cff;color:#fff}
+  .m-travel::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;background:var(--six)}
+  .m-rsvp{background:var(--amber);color:#000}
+  .m-rsvp::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;
+    background:repeating-linear-gradient(90deg,#000 0 10px,transparent 10px 18px)}
+  .mode::after{content:"";position:absolute;right:16px;top:26px;width:0;height:0;
+    border-left:12px solid currentColor;border-top:8px solid transparent;border-bottom:8px solid transparent}
+  .again{text-align:center;margin-top:28px}
+  .again a{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border-radius:999px;
+    background:#7c5cff;color:#fff;font-weight:700;text-decoration:none}
 
   /* ---------- Jahrzehnte allgemein ---------- */
   .era{padding:88px 0 80px;position:relative;overflow:hidden;background:var(--bg)}
@@ -242,7 +255,7 @@
 <div class="bar" id="bar">
   <div class="bar-in">
     <span class="bar-year" id="barYear" aria-hidden="true">1976</span>
-    <a class="bar-cta" href="#rsvp">Zusagen</a>
+    <a class="bar-cta" id="barCta" href="#rsvp">Zusagen</a>
   </div>
   <div class="six" style="height:3px" aria-hidden="true"></div>
 </div>
@@ -257,10 +270,16 @@
     <h1>Andy wird 50</h1>
     <div class="six" aria-hidden="true"></div>
     <p class="when"><strong>Samstag, 30. Januar 2027</strong><br>ab 18 Uhr im RIVIERA Germering</p>
-    <div class="actions">
-      <a class="cta" href="#rsvp">Jetzt zusagen</a>
-      <a class="quiet" href="#e70">Erst die Zeitreise machen</a>
-    </div>
+    <nav class="modes" aria-label="Wie möchtest du starten?">
+      <a class="mode m-travel" href="#e70">
+        <span class="big" aria-hidden="true">1976–<br>2026</span>
+        <span><strong>Zeitreise</strong><span class="s">50 Jahre, 3 Minuten</span></span>
+      </a>
+      <a class="mode m-rsvp" href="#rsvp">
+        <span class="big" aria-hidden="true">30.01.<br>2027</span>
+        <span><strong>Zusagen</strong><span class="s">Bis 9. Januar</span></span>
+      </a>
+    </nav>
   </div>
 </header>
 
@@ -428,6 +447,7 @@
       <!-- HIER ANPASSEN: Anmeldeschluss -->
       <p class="deadline">Bitte bis 9. Januar 2027 zusagen.</p>
     </div>
+    <p class="again"><a href="#e70">Zeitreise ansehen</a></p>
   </div>
 </section>
 </main>
@@ -487,6 +507,11 @@
     if (e.isIntersecting) barYear.textContent = e.target.dataset.year;
   }), { rootMargin: "-40% 0px -55% 0px" });
   document.querySelectorAll("[data-year]").forEach(el => yio.observe(el));
+  const barCta = document.getElementById("barCta");
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) { barCta.textContent = "Zeitreise"; barCta.href = "#e70"; barCta.style.background = "#7c5cff"; barCta.style.color = "#fff"; }
+    else { barCta.textContent = "Zusagen"; barCta.href = "#rsvp"; barCta.style.background = ""; barCta.style.color = ""; }
+  }, { rootMargin: "0px 0px -40% 0px" }).observe(document.getElementById("party"));
 
   // Fotos per Tipp vergrößern
   const lb = document.getElementById("lightbox"), lbImg = lb.querySelector("img");
