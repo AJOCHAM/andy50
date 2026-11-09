@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Andy wird 50 – Eine Zeitreise 1976–2026</title>
+<meta name="description" content="Einladung zu Andys 50. Geburtstag am 30. Januar 2027 im RIVIERA Germering">
+<meta name="theme-color" content="#0b0b10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Monoton&family=VT323&family=Press+Start+2P&family=Fredoka:wght@500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:#0b0b10;color:#f4f1ea;
+    font-family:"Space Grotesk",system-ui,sans-serif;line-height:1.5;
+    overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+
+  /* ---------- Jahresanzeige oben rechts ---------- */
+  .yearbadge{
+    position:fixed;top:14px;right:14px;z-index:40;
+    font-family:"VT323",monospace;font-size:1.6rem;line-height:1;
+    background:#000;color:#39ff88;padding:8px 12px 6px;border-radius:8px;
+    border:2px solid #39ff88;box-shadow:0 0 14px rgba(57,255,136,.45);
+    opacity:0;transform:translateY(-8px);transition:opacity .4s,transform .4s;
+  }
+  .yearbadge.show{opacity:1;transform:none}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100svh;display:grid;place-items:center;text-align:center;
+    padding:60px 20px;position:relative;overflow:hidden;
+    background:radial-gradient(ellipse at center,#1d1d2b 0%,#0b0b10 70%);
+  }
+  .hero::before{ /* Scanlines wie beim Röhrenfernseher */
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 2px,transparent 2px 4px);
+  }
+  .odometer{
+    font-family:"VT323",monospace;font-size:clamp(5rem,28vw,11rem);line-height:.9;
+    color:#39ff88;text-shadow:0 0 18px rgba(57,255,136,.6);
+    font-variant-numeric:tabular-nums;
+  }
+  .hero small{
+    display:block;font-family:"Press Start 2P",monospace;font-size:.62rem;
+    letter-spacing:.15em;color:#9a9ab0;margin-bottom:18px;line-height:1.8;
+  }
+  .hero h1{
+    margin-top:18px;font-weight:700;font-size:clamp(2.2rem,10vw,4.4rem);line-height:1;
+    letter-spacing:-.03em;
+    background:linear-gradient(90deg,#f2b134,#e8632b,#ff3cac,#00e5ff,#39ff88);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p{margin-top:16px;font-size:1.1rem;color:#c9c6d6;max-width:30ch;margin-inline:auto}
+  .start-btn{
+    display:inline-block;margin-top:28px;font-family:"Press Start 2P",monospace;font-size:.75rem;
+    text-decoration:none;color:#0b0b10;background:#39ff88;padding:14px 18px;border-radius:6px;
+    box-shadow:0 5px 0 #1a9c50;animation:blink 1.4s steps(2) infinite;
+  }
+  @keyframes blink{50%{opacity:.55}}
+
+  /* ---------- Jahrzehnte ---------- */
+  .era{padding:90px 0 70px;position:relative;overflow:hidden}
+  .era h2{line-height:1;margin-bottom:8px}
+  .era .sub{margin-bottom:34px;opacity:.85}
+  .events{display:grid;gap:18px}
+  .ev{position:relative;padding:20px 20px 20px}
+  .ev .yr{display:block;font-weight:700}
+  .ev h3{font-size:1.25rem;line-height:1.25;margin:4px 0 6px}
+  .ev p{font-size:.98rem;opacity:.88}
+  .tag{display:inline-block;font-family:"VT323",monospace;font-size:1.1rem;line-height:1;background:#0b0b10;color:#39ff88;
+    border:1px solid #39ff88;padding:4px 8px 3px;border-radius:4px;margin:6px 0 2px}
+
+  /* 70er */
+  .e70{background:#3a2216;color:#f6ead2}
+  .e70::after{content:"";position:absolute;left:0;right:0;bottom:0;height:36px;
+    background:linear-gradient(#f2b134 0 25%,#e8632b 25% 50%,#c4362b 50% 75%,#7a3b1d 75%)}
+  .e70 h2{font-family:"Shrikhand",serif;font-weight:400;font-size:clamp(3rem,14vw,5.5rem);color:#f2b134;
+    text-shadow:4px 4px 0 #c4362b}
+  .e70 .ev{background:#f6ead2;color:#3a2216;border-radius:28px;box-shadow:6px 6px 0 #e8632b}
+  .e70 .yr{font-family:"Shrikhand",serif;font-weight:400;color:#c4362b;font-size:1.4rem}
+
+  /* 80er */
+  .e80{background:#12002b;color:#fff}
+  .e80::before{ /* Neon-Gitter */
+    content:"";position:absolute;left:-50%;right:-50%;bottom:-10%;height:60%;
+    background:
+      linear-gradient(transparent 0 calc(100% - 2px),rgba(255,60,172,.55) 0) 0 0/100% 40px,
+      linear-gradient(90deg,transparent 0 calc(100% - 2px),rgba(255,60,172,.55) 0) 0 0/40px 100%;
+    transform:perspective(320px) rotateX(62deg);transform-origin:bottom;opacity:.55;pointer-events:none;
+  }
+  .e80 .wrap{position:relative}
+  .e80 h2{font-family:"Monoton",cursive;font-weight:400;font-size:clamp(3rem,15vw,6rem);color:#ff3cac;
+    text-shadow:0 0 10px #ff3cac,0 0 30px #ff3cac}
+  .e80 .sub{color:#00e5ff}
+  .e80 .ev{background:rgba(18,0,43,.82);border:2px solid #00e5ff;border-radius:6px;
+    box-shadow:0 0 14px rgba(0,229,255,.45),inset 0 0 14px rgba(0,229,255,.15)}
+  .e80 .yr{font-family:"Press Start 2P",monospace;font-size:.8rem;color:#ffe600}
+
+  /* 90er */
+  .e90{background:#008080;color:#000}
+  .e90 h2{font-family:"Press Start 2P",monospace;font-size:clamp(1.8rem,8vw,3rem);color:#fff;
+    text-shadow:4px 4px 0 #000;line-height:1.3}
+  .e90 .sub{color:#fff;font-family:"VT323",monospace;font-size:1.4rem}
+  .e90 .ev{background:#c0c0c0;padding:0;border:2px solid;border-color:#fff #404040 #404040 #fff;
+    box-shadow:2px 2px 0 #000}
+  .e90 .bar{display:flex;justify-content:space-between;align-items:center;
+    background:linear-gradient(90deg,#000080,#1084d0);color:#fff;padding:4px 6px;
+    font-family:"VT323",monospace;font-size:1.2rem}
+  .e90 .bar i{font-style:normal;background:#c0c0c0;color:#000;width:20px;height:18px;display:grid;place-items:center;
+    border:2px solid;border-color:#fff #404040 #404040 #fff;font-size:.9rem;line-height:1}
+  .e90 .body{padding:14px 16px 16px}
+  .e90 .yr{display:none}
+  .e90 h3{font-family:"VT323",monospace;font-weight:400;font-size:1.7rem;line-height:1.1}
+
+  /* 2000er */
+  .e00{background:linear-gradient(180deg,#bfe6ff,#eaf6ff 60%,#fff);color:#0d2b45}
+  .e00 h2{font-family:"Fredoka",sans-serif;font-size:clamp(3rem,14vw,5.5rem);
+    background:linear-gradient(180deg,#5ec8ff,#0a6fd6);-webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 3px 0 rgba(255,255,255,.9))}
+  .e00 .ev{border-radius:20px;color:#0d2b45;
+    background:linear-gradient(180deg,#ffffff 0%,#e3f3ff 50%,#cfe9ff 51%,#eaf6ff 100%);
+    border:1px solid #9fd2f5;box-shadow:0 8px 20px rgba(10,111,214,.18)}
+  .e00 .yr{font-family:"Fredoka",sans-serif;color:#0a6fd6;font-size:1.3rem}
+  .e00 h3{font-family:"Fredoka",sans-serif}
+
+  /* 2010er */
+  .e10{background:#f7f7f2;color:#111}
+  .e10 h2{font-weight:700;font-size:clamp(3rem,14vw,5.5rem);letter-spacing:-.05em}
+  .e10 h2 span{color:#ff4f4f}
+  .e10 .ev{background:#fff;border-radius:4px;border-left:8px solid var(--c,#ff4f4f);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .e10 .ev:nth-child(3n+2){--c:#2ec4b6}.e10 .ev:nth-child(3n+3){--c:#ffbf00}
+  .e10 .yr{color:#888;font-size:.9rem;letter-spacing:.1em}
+
+  /* 2020er */
+  .e20{background:#0b0b10;color:#f4f1ea}
+  .e20::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle,rgba(124,92,255,.45),transparent 65%);top:-120px;right:-180px;filter:blur(10px)}
+  .e20 .wrap{position:relative}
+  .e20 h2{font-weight:500;font-size:clamp(3rem,14vw,5.5rem);letter-spacing:-.04em;
+    background:linear-gradient(90deg,#c6b8ff,#7c5cff,#00e5ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .e20 .ev{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+  .e20 .yr{color:#a99bff;font-size:.9rem;letter-spacing:.1em}
+
+  /* ---------- 2027: Party ---------- */
+  .party{
+    padding:100px 0 80px;
+    background:
+      linear-gradient(180deg,#0b0b10 0,#140c22 100%);
+  }
+  .rainbow{height:14px;background:linear-gradient(90deg,#f2b134,#e8632b,#ff3cac,#00e5ff,#008080,#5ec8ff,#2ec4b6,#7c5cff)}
+  .party .eyebrow{font-family:"Press Start 2P",monospace;font-size:.7rem;color:#39ff88;letter-spacing:.1em}
+  .party h2{margin:14px 0 10px;font-size:clamp(2.6rem,12vw,5rem);line-height:.95;letter-spacing:-.03em;font-weight:700}
+  .party h2 .grad{background:linear-gradient(90deg,#f2b134,#ff3cac,#00e5ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .party .intro{font-size:1.1rem;color:#c9c6d6;max-width:40ch;margin-bottom:34px}
+
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+  .fact{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px}
+  .fact dt{font-size:.72rem;text-transform:uppercase;letter-spacing:.15em;color:#9a9ab0}
+  .fact dd{font-weight:700;font-size:1.1rem;line-height:1.3;margin-top:2px}
+  .fact.wide{grid-column:1/-1}
+
+  .countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:28px 0 40px}
+  .cd{background:#000;border:2px solid #39ff88;border-radius:10px;text-align:center;padding:12px 4px 8px}
+  .cd b{display:block;font-family:"VT323",monospace;font-size:clamp(2.2rem,10vw,3.4rem);line-height:1;color:#39ff88;
+    text-shadow:0 0 10px rgba(57,255,136,.5);font-variant-numeric:tabular-nums}
+  .cd span{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:#9a9ab0}
+
+  .plan{list-style:none;border-left:3px solid #ff3cac;margin:8px 0 34px 6px}
+  .plan li{position:relative;padding:0 0 22px 22px}
+  .plan li::before{content:"";position:absolute;left:-10px;top:5px;width:17px;height:17px;border-radius:50%;
+    background:#140c22;border:3px solid #00e5ff}
+  .plan time{font-family:"VT323",monospace;font-size:1.4rem;color:#00e5ff;line-height:1}
+  .plan strong{display:block;font-size:1.2rem}
+
+  .btn{display:inline-flex;gap:8px;align-items:center;text-decoration:none;font-weight:700;
+    background:#fff;color:#0b0b10;padding:14px 22px;border-radius:999px;margin-bottom:56px}
+
+  .rsvp{background:#f4f1ea;color:#0b0b10;border-radius:24px;padding:30px 20px}
+  .rsvp h3{font-size:clamp(1.8rem,7vw,2.4rem);line-height:1.05;letter-spacing:-.02em;margin-bottom:8px}
+  .rsvp p{margin-bottom:20px}
+  .rsvp iframe{width:100%;height:1150px;border:0;border-radius:14px;background:#fff;display:block}
+  .placeholder{border:3px dashed #9a9ab0;border-radius:14px;padding:30px 18px;text-align:center;
+    font-family:"VT323",monospace;font-size:1.3rem}
+  .deadline{display:inline-block;margin-top:16px;background:#0b0b10;color:#39ff88;
+    font-family:"VT323",monospace;font-size:1.25rem;padding:6px 14px;border-radius:999px}
+
+  footer{text-align:center;padding:60px 20px 80px;background:#140c22}
+  footer .big{font-family:"Press Start 2P",monospace;font-size:clamp(.9rem,4vw,1.2rem);line-height:1.8;color:#39ff88}
+  footer p{color:#9a9ab0;margin-top:12px}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  .ev.me{padding:12px 16px}
+  .ev.me h3{font-size:1.02rem;margin:2px 0 3px}
+  .ev.me p{font-size:.86rem}
+  .ev.me .yr{font-size:.85rem}
+  .e70 .ev.me .yr{font-size:1.05rem}
+  .e90 .ev.me{padding:0}
+  .e90 .ev.me .body{padding:10px 14px 12px}
+  .e90 .ev.me h3{font-size:1.35rem}
+  .ev.me .tag{font-size:.9rem;padding:2px 6px 1px;margin:4px 0 0}
+  /* Fotos bei den Level-ups */
+  .ev.me{display:grid;grid-template-columns:84px minmax(0,1fr);column-gap:14px;align-content:start}
+  .ev.me > :not(.pic){grid-column:2;justify-self:start}
+  .ev.me > .pic{grid-column:1;grid-row:1 / span 4}
+  .e90 .ev.me{display:block}
+  .e90 .ev.me > .bar{justify-self:stretch}
+  .e90 .ev.me .body{display:grid;grid-template-columns:84px minmax(0,1fr);column-gap:14px;align-content:start}
+  .e90 .ev.me .body > :not(.pic){grid-column:2;justify-self:start}
+  .e90 .ev.me .body > .pic{grid-column:1;grid-row:1 / span 3}
+  .pic{position:relative;width:84px;height:84px;margin:0;align-self:start;cursor:zoom-in;
+    background:#fff;padding:4px 4px 12px;box-shadow:0 3px 8px rgba(0,0,0,.25);transform:rotate(-3deg);
+    display:grid;place-items:center}
+  .ev.me:nth-of-type(even) .pic{transform:rotate(2.5deg)}
+  .pic img{position:absolute;inset:4px 4px 12px;width:calc(100% - 8px);height:calc(100% - 16px);object-fit:cover;display:block}
+  .pic span{font-family:"VT323",monospace;font-size:1rem;color:#767676;border:2px dashed #c9c9c9;
+    width:100%;height:100%;display:grid;place-items:center}
+  .e90 .pic{transform:none;padding:3px;border:2px solid;border-color:#404040 #fff #fff #404040;box-shadow:none}
+  .e90 .pic img{inset:3px;width:calc(100% - 6px);height:calc(100% - 6px)}
+  .lightbox{position:fixed;inset:0;z-index:60;background:rgba(5,5,10,.92);display:none;
+    align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:100%;max-height:85svh;border:8px solid #fff;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+  @media (min-width:640px){
+    .events{grid-template-columns:1fr 1fr}
+    .rsvp{padding:40px 34px}
+  }
+  @media (max-width:640px){ .rsvp iframe{height:1300px} }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="lightbox" id="lightbox" aria-hidden="true"><img alt=""></div>
+<div class="yearbadge" id="yearbadge" aria-hidden="true">1976</div>
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+<header class="hero">
+  <div>
+    <small>Zeitmaschine wird gestartet …</small>
+    <div class="odometer" id="odo">1976</div>
+    <h1>Andy wird 50</h1>
+    <p>Eine Zeitreise durch fünf Jahrzehnte – und am Ende landen wir auf der Tanzfläche.</p>
+    <a class="start-btn" href="#e70">▶ Press Start</a>
+  </div>
+</header>
+
+<!-- =========================================================
+     70er
+     ========================================================= -->
+<section class="era e70" id="e70">
+  <div class="wrap">
+    <h2 class="reveal">Die 70er</h2>
+    <p class="sub reveal">Schlaghosen, Kassetten – und ein ganz besonderer Neuzugang.</p>
+    <div class="events">
+      <article class="ev reveal me" data-year="1976"><figure class="pic" tabindex="0" role="button" aria-label="Foto vergrößern: Andy als Baby"><img src="img/1976-geburt.jpg" alt="Andy als Baby" loading="lazy" onerror="this.remove()"><span>Foto</span></figure><span class="yr">12. Dez. 1976</span><span class="tag">★ Level up</span>
+        <h3>Andy betritt die Bühne</h3><p>Ohne Soundcheck, aber direkt mit voller Lautstärke.</p></article>
+      <article class="ev reveal" data-year="1977"><span class="yr">1977</span>
+        <h3>Voyager 1 startet ins All</h3><p>Die Sonde fliegt bis heute – nur ein knappes Jahr jünger als Andy.</p></article>
+      <article class="ev reveal" data-year="1979"><span class="yr">1979</span>
+        <h3>Der Walkman kommt</h3><p>Musik zum ersten Mal einfach in der Hosentasche.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 80er -->
+<section class="era e80">
+  <div class="wrap">
+    <h2 class="reveal">80s</h2>
+    <p class="sub reveal">Neon, Vokuhila, Kassettenrekorder auf der Schulter.</p>
+    <div class="events">
+      <article class="ev reveal" data-year="1980"><span class="yr">1980</span>
+        <h3>Pac-Man erobert die Spielhallen</h3><p>Waka-waka-waka – und das Taschengeld ist weg.</p></article>
+      <article class="ev reveal me" data-year="1980"><figure class="pic" tabindex="0" role="button" aria-label="Foto vergrößern: Andy mit seinem kleinen Bruder"><img src="img/1980-bruder.jpg" alt="Andy mit seinem kleinen Bruder" loading="lazy" onerror="this.remove()"><span>Foto</span></figure><span class="yr">5. Mai 1980</span><span class="tag">★ Level up</span>
+        <h3>Player 2 betritt das Spiel</h3><p>Andys Bruder kommt zur Welt – ab jetzt wird geteilt.</p></article>
+      <article class="ev reveal" data-year="1981"><span class="yr">1981</span>
+        <h3>MTV geht auf Sendung</h3><p>Ab jetzt gibt’s Musik auch zum Anschauen.</p></article>
+      <article class="ev reveal" data-year="1985"><span class="yr">1985</span>
+        <h3>Boris gewinnt Wimbledon</h3><p>Mit 17 – und ganz Deutschland hechtet mit.</p></article>
+      <article class="ev reveal" data-year="1989"><span class="yr">1989</span>
+        <h3>Die Mauer fällt</h3><p>Der vielleicht schönste Abend des Jahrzehnts.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 90er -->
+<section class="era e90">
+  <div class="wrap">
+    <h2 class="reveal">90er</h2>
+    <p class="sub reveal">C:\&gt; Modem-Geräusche und Tamagotchi-Stress</p>
+    <div class="events">
+      <article class="ev reveal" data-year="1990"><div class="bar"><span>1990.exe</span><i>×</i></div>
+        <div class="body"><h3>Weltmeister &amp; Einheit</h3><p>Erst der Titel in Rom, dann die Wiedervereinigung.</p></div></article>
+      <article class="ev reveal" data-year="1991"><div class="bar"><span>1991.exe</span><i>×</i></div>
+        <div class="body"><h3>Das World Wide Web geht online</h3><p>Damals noch langsam – heute unverzichtbar.</p></div></article>
+      <article class="ev reveal" data-year="1992"><div class="bar"><span>1992.exe</span><i>×</i></div>
+        <div class="body"><h3>Die erste SMS</h3><p>Inhalt: „Merry Christmas“. Kurz und knackig.</p></div></article>
+      <article class="ev reveal me" data-year="1995"><div class="bar"><span>fuehrerschein.exe</span><i>×</i></div>
+        <div class="body"><figure class="pic" tabindex="0" role="button" aria-label="Foto vergrößern: Andy mit 18 und dem ersten Auto"><img src="img/1995-fuehrerschein.jpg" alt="Andy mit 18 und dem ersten Auto" loading="lazy" onerror="this.remove()"><span>Foto</span></figure><span class="tag">★ Level up</span><h3>Mit 18: Führerschein!</h3><p>Freiheit auf vier Rädern – Mixtape im Kassettendeck.</p></div></article>
+      <article class="ev reveal" data-year="1998"><div class="bar"><span>1998.exe</span><i>×</i></div>
+        <div class="body"><h3>Google wird gegründet</h3><p>Ab jetzt muss man nichts mehr wissen – nur noch suchen.</p></div></article>
+      <article class="ev reveal me" data-year="1998"><div class="bar"><span>studium.exe</span><i>×</i></div>
+        <div class="body"><figure class="pic" tabindex="0" role="button" aria-label="Foto vergrößern: Andy zum Studienbeginn"><img src="img/1998-studium.jpg" alt="Andy zum Studienbeginn" loading="lazy" onerror="this.remove()"><span>Foto</span></figure><span class="tag">★ Level up</span><h3>Andy startet ins Studium</h3><p>Hörsaal statt Klassenzimmer – und die ersten eigenen Entscheidungen.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- 2000er -->
+<section class="era e00">
+  <div class="wrap">
+    <h2 class="reveal">2000er</h2>
+    <p class="sub reveal">Glänzende Buttons, Klapphandys und ein neues Portemonnaie.</p>
+    <div class="events">
+      <article class="ev reveal" data-year="2000"><span class="yr">2000</span>
+        <h3>Y2K – nichts passiert</h3><p>Alle Computer überleben Silvester. Puh.</p></article>
+      <article class="ev reveal" data-year="2002"><span class="yr">2002</span>
+        <h3>Der Euro ist da</h3><p>Und alle rechnen noch jahrelang in D-Mark um.</p></article>
+      <article class="ev reveal" data-year="2006"><span class="yr">2006</span>
+        <h3>Das Sommermärchen</h3><p>WM im eigenen Land, Fahnen an jedem Auto.</p></article>
+      <article class="ev reveal" data-year="2007"><span class="yr">2007</span>
+        <h3>Das iPhone wird vorgestellt</h3><p>Seitdem schaut die Welt nach unten.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 2010er -->
+<section class="era e10">
+  <div class="wrap">
+    <h2 class="reveal">2010<span>er</span></h2>
+    <p class="sub reveal">Flat Design, Filter auf alles – und ein Stern über Rio.</p>
+    <div class="events">
+      <article class="ev reveal" data-year="2010"><span class="yr">2010</span>
+        <h3>Instagram startet</h3><p>Jedes Mittagessen wird zum Fotomotiv.</p></article>
+      <article class="ev reveal me" data-year="2012"><figure class="pic" tabindex="0" role="button" aria-label="Foto vergrößern: Sammy als Baby"><img src="img/2012-sammy.jpg" alt="Sammy als Baby" loading="lazy" onerror="this.remove()"><span>Foto</span></figure><span class="yr">Februar 2012</span><span class="tag">★ Level up</span>
+        <h3>Sammy ist da</h3><p>Der Sohn betritt die Bühne – und übernimmt sofort das Kommando.</p></article>
+      <article class="ev reveal me" data-year="2012"><figure class="pic" tabindex="0" role="button" aria-label="Foto vergrößern: Andy und Cecilia bei der Hochzeit"><img src="img/2012-hochzeit.jpg" alt="Andy und Cecilia bei der Hochzeit" loading="lazy" onerror="this.remove()"><span>Foto</span></figure><span class="yr">15. September 2012</span><span class="tag">★ Level up</span>
+        <h3>Hochzeit mit Cecilia</h3><p>Das schönste Ja des Jahrzehnts.</p></article>
+      <article class="ev reveal" data-year="2014"><span class="yr">2014</span>
+        <h3>Weltmeister in Rio</h3><p>Der vierte Stern – und ein Abend für die Ewigkeit.</p></article>
+      <article class="ev reveal me" data-year="2015"><figure class="pic" tabindex="0" role="button" aria-label="Foto vergrößern: Becky als Baby"><img src="img/2015-becky.jpg" alt="Becky als Baby" loading="lazy" onerror="this.remove()"><span>Foto</span></figure><span class="yr">Juni 2015</span><span class="tag">★ Level up</span>
+        <h3>Becky ist da</h3><p>Die Tochter macht die Familie komplett.</p></article>
+      <article class="ev reveal me" data-year="2017"><figure class="pic" tabindex="0" role="button" aria-label="Foto vergrößern: Das neue Zuhause in Germering"><img src="img/2017-germering.jpg" alt="Das neue Zuhause in Germering" loading="lazy" onerror="this.remove()"><span>Foto</span></figure><span class="yr">2017</span><span class="tag">★ Level up</span>
+        <h3>Umzug nach Germering</h3><p>Neues Zuhause, neue Basis – genau hier wird jetzt gefeiert.</p></article>
+      <article class="ev reveal" data-year="2019"><span class="yr">2019</span>
+        <h3>Das erste Foto eines Schwarzen Lochs</h3><p>Ein unscharfer Ring, der Geschichte schreibt.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 2020er -->
+<section class="era e20">
+  <div class="wrap">
+    <h2 class="reveal">2020s</h2>
+    <p class="sub reveal">Teleskope im All, Maschinen, die zurückschreiben.</p>
+    <div class="events">
+      <article class="ev reveal" data-year="2021"><span class="yr">2021</span>
+        <h3>Das James-Webb-Teleskop startet</h3><p>Schärfere Bilder aus dem Weltall als je zuvor.</p></article>
+      <article class="ev reveal" data-year="2022"><span class="yr">2022</span>
+        <h3>KI wird alltäglich</h3><p>Plötzlich chattet die halbe Welt mit Maschinen.</p></article>
+    </div>
+  </div>
+</section>
+
+<div class="rainbow" aria-hidden="true"></div>
+
+<!-- =========================================================
+     2027 – DIE PARTY
+     ========================================================= -->
+<section class="party" id="party" data-year="2027">
+  <div class="wrap">
+    <p class="eyebrow reveal">&gt; 2027 · Nächstes Highlight geladen</p>
+    <h2 class="reveal">50 Jahre.<br><span class="grad">Eine Party.</span></h2>
+    <p class="intro reveal">All das musste passieren, damit wir diesen Abend zusammen feiern können. Sei dabei!</p>
+
+    <dl class="facts reveal">
+      <div class="fact"><dt>Datum</dt><dd>Sa, 30. Januar 2027</dd></div>
+      <div class="fact"><dt>Beginn</dt><dd>18:00 Uhr</dd></div>
+      <div class="fact wide"><dt>Location</dt><dd>RIVIERA, Germering</dd></div>
+      <!-- HIER ANPASSEN: Dresscode (Vorschlag) -->
+      <div class="fact wide"><dt>Dresscode</dt><dd>Gern im Look deines Lieblingsjahrzehnts</dd></div>
+    </dl>
+
+    <div class="countdown reveal" data-date="2027-01-30T18:00">
+      <div class="cd"><b id="d">–</b><span>Tage</span></div>
+      <div class="cd"><b id="h">–</b><span>Std</span></div>
+      <div class="cd"><b id="m">–</b><span>Min</span></div>
+      <div class="cd"><b id="s">–</b><span>Sek</span></div>
+    </div>
+
+    <ol class="plan reveal">
+      <li><time>18:00</time><strong>Empfang</strong></li>
+      <li><time>ca. 19:00</time><strong>Essen</strong></li>
+      <li><time>ca. 21:00</time><strong>Party – fünf Jahrzehnte auf der Tanzfläche</strong></li>
+    </ol>
+
+    <a class="btn reveal" href="https://www.google.com/maps/search/?api=1&amp;query=RIVIERA+Germering" target="_blank" rel="noopener">📍 Route planen</a>
+
+    <div class="rsvp reveal" id="rsvp">
+      <h3>Bist du dabei?</h3>
+      <p>Sag kurz Bescheid, ob du kommst und mit wie vielen Personen.</p>
+      <div id="form-slot"></div>
+      <!-- HIER ANPASSEN: Anmeldeschluss -->
+      <span class="deadline">Bitte zusagen bis 9. Januar 2027</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="big">GAME CONTINUES…<br>LEVEL 50</p>
+  <p>Ich freu mich auf euch! – Andy</p>
+</footer>
+
+<script>
+  /* =========================================================
+     HIER ANPASSEN: Link zu deinem Google Formular
+     (Google Forms → Senden → <> → Adresse aus src="...")
+     ========================================================= */
+  const FORM_URL = "";
+
+  const slot = document.getElementById("form-slot");
+  if (FORM_URL) {
+    const f = document.createElement("iframe");
+    f.src = FORM_URL; f.title = "Zusage-Formular"; f.loading = "lazy";
+    slot.appendChild(f);
+  } else {
+    slot.innerHTML = '<div class="placeholder">Hier erscheint dein Google-Formular.<br>Link im Script bei FORM_URL eintragen.</div>';
+  }
+
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Jahreszähler im Hero: 1976 → 2026
+  const odo = document.getElementById("odo");
+  if (!reduce) {
+    let y = 1976;
+    setTimeout(function step(){
+      odo.textContent = y;
+      if (y < 2026) { y++; setTimeout(step, 22 + (y - 1976) * 1.2); }
+    }, 600);
+  } else { odo.textContent = "2026"; }
+
+  // Countdown
+  const target = new Date(document.querySelector(".countdown").dataset.date).getTime();
+  const pad = n => String(n).padStart(2, "0");
+  function tick(){
+    let t = Math.max(0, target - Date.now());
+    const d = Math.floor(t / 864e5); t -= d * 864e5;
+    const h = Math.floor(t / 36e5);  t -= h * 36e5;
+    const m = Math.floor(t / 6e4);   t -= m * 6e4;
+    document.getElementById("d").textContent = d;
+    document.getElementById("h").textContent = pad(h);
+    document.getElementById("m").textContent = pad(m);
+    document.getElementById("s").textContent = pad(Math.floor(t / 1e3));
+  }
+  tick(); setInterval(tick, 1000);
+
+  // Einblenden beim Scrollen
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  }), { threshold: .15 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+  // Jahresanzeige oben rechts folgt dem Scrollen
+  const badge = document.getElementById("yearbadge");
+  const yio = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) badge.textContent = e.target.dataset.year;
+  }), { rootMargin: "-45% 0px -45% 0px" });
+  document.querySelectorAll("[data-year]").forEach(el => yio.observe(el));
+  const hero = document.querySelector(".hero");
+  new IntersectionObserver(([e]) => badge.classList.toggle("show", !e.isIntersecting), { threshold: .2 }).observe(hero);
+  // Fotos per Tipp vergrößern
+  const lb = document.getElementById("lightbox"), lbImg = lb.querySelector("img");
+  document.querySelectorAll(".pic").forEach(f => {
+    const open = () => { const i = f.querySelector("img"); if (!i) return;
+      lbImg.src = i.src; lbImg.alt = i.alt; lb.classList.add("open"); lb.setAttribute("aria-hidden","false"); };
+    f.addEventListener("click", open);
+    f.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+  });
+  lb.addEventListener("click", () => { lb.classList.remove("open"); lb.setAttribute("aria-hidden","true"); });
+</script>
+</body>
+</html>
